@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>trq@SnrevrZHQ.bet</string>
+	<key>contactName</key>
+	<string>Michael Granger</string>
+	<key>description</key>
+	<string>RDoc -- Ruby API documentation bundle.</string>
+	<key>name</key>
+	<string>RDoc</string>
+	<key>uuid</key>
+	<string>6B4F2625-F2AB-4768-B17B-31F4804995B0</string>
+</dict>
+</plist>

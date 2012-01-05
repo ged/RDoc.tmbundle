@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>src</string>
+	</array>
+	<key>name</key>
+	<string>RDoc</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>include</key>
+			<string>#block</string>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>block</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heading</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#simple_lists</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#verbatim</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#paragraph</string>
+				</dict>
+			</array>
+			<key>repository</key>
+			<dict>
+				<key>heading</key>
+				<dict>
+					<key>begin</key>
+					<string>(?:^|\G)(={1,6})\s*(?=[\S[^=]])</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.heading.rdoc</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>punctuation.definition.section.rdoc</string>
+					<key>end</key>
+					<string>$\n?</string>
+					<key>name</key>
+					<string>markup.heading.${1/(=)(=)?(=)?(=)?(=)?(=)?/${6:?6:${5:?5:${4:?4:${3:?3:${2:?2:1}}}}}/}.rdoc</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#inline</string>
+						</dict>
+					</array>
+				</dict>
+				<key>paragraph</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)(\s?)(?=\S)</string>
+					<key>comment</key>
+					<string>
+						The markup engine looks for a document’s natural left margin. This is 
+						used as the initial margin for the document. Consecutive lines starting 
+						at this margin are considered to be a paragraph. Empty lines separate 
+						paragraphs.
+
+						[FIXME] This isn't really correct, but until I figure out how to track what the
+						'initial margin' is, it'll have to do.
+					</string>
+					<key>name</key>
+					<string>meta.paragraph.rdoc</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#inline</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>text.html.basic</string>
+						</dict>
+					</array>
+					<key>while</key>
+					<string>(^|\G)(?!\s*$|[=\*\-]|[[:alnum:]]\.)</string>
+				</dict>
+				<key>simple_lists</key>
+				<dict>
+					<key>comment</key>
+					<string>
+						If a paragraph starts with a “*”, “-”, “&lt;digit&gt;.” or “&lt;letter&gt;.”, then it 
+						is taken to be the start of a list. The margin is increased to be the 
+						first non-space following the list start flag. 
+						Subsequent lines should be indented to this new margin until the list 
+						ends.
+
+						[FIXME] Again, these patterns aren't savvy enough to 
+						correctly match list items with various indent levels.
+					</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>begin</key>
+							<string>(^|\G)\s?([*-])</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.list.rdoc</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>markup.list.unnumbered.rdoc</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#block</string>
+								</dict>
+							</array>
+							<key>while</key>
+							<string>(?:^|\G)([ ]{2})</string>
+						</dict>
+						<dict>
+							<key>begin</key>
+							<string>(^|\G)\s?([[:alnum:]]\.)</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.list.rdoc</string>
+								</dict>
+							</dict>
+							<key>name</key>
+							<string>markup.list.numbered.rdoc</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#block</string>
+								</dict>
+							</array>
+							<key>while</key>
+							<string>\G([ ]{4}|\t|$)</string>
+						</dict>
+					</array>
+				</dict>
+				<key>verbatim</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)([ ]{2,}|\t)</string>
+					<key>comment</key>
+					<string>
+						Any line that starts to the right of the current margin is treated as 
+						verbatim text.
+						
+						[FIXME] This isn't really correct, but until I figure out how to track what the
+						'current margin' is, it'll have to do.
+					</string>
+					<key>name</key>
+					<string>markup.raw.block.rdoc</string>
+					<key>while</key>
+					<string>(^|\G)([ ]{2,}|\t)</string>
+				</dict>
+			</dict>
+		</dict>
+		<key>inline</key>
+		<dict>
+			<key>patterns</key>
+			<array/>
+			<key>repository</key>
+			<dict/>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>text.html.rdoc</string>
+	<key>uuid</key>
+	<string>8DD7EA05-A0B9-4FDE-9DF1-4374DE271BD1</string>
+</dict>
+</plist>
