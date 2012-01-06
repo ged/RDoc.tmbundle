@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+gem 'rdoc', '~&gt; 3.10'
+
+#
+# Most stolen from bin/rdoc in the rdoc gem.
+#
+#  Copyright (c) 2003 Dave Thomas
+#  Released under the same terms as Ruby
+
+require 'rdoc/rdoc'
+
+begin
+	r = RDoc::RDoc.new
+
+	opts = [ '--pipe' ]
+	opts &lt;&lt; '--title' &lt;&lt; "RDoc Preview of #{ENV['TM_DISPLAYNAME']}"
+
+	r.document( opts )
+rescue SystemExit
+	raise
+rescue Exception =&gt; e
+	if ENV['TM_DEBUG_RDOC'] then
+		$stderr.puts e.message
+		$stderr.puts "#{e.backtrace.join "\n\t"}"
+		$stderr.puts
+	elsif Interrupt === e then
+		$stderr.puts
+		$stderr.puts 'Interrupted'
+	else
+		$stderr.puts "uh-oh! RDoc had a problem:"
+		$stderr.puts e.message
+		$stderr.puts
+		$stderr.puts "run with --debug for full backtrace"
+	end
+
+	exit 1
+end
+
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^~@p</string>
+	<key>name</key>
+	<string>Preview</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>text.html.rdoc</string>
+	<key>uuid</key>
+	<string>4E5172D1-99B3-484A-AE68-CABC7B03BA70</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

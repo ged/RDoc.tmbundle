@@ -4,8 +4,12 @@
 <dict>
 	<key>fileTypes</key>
 	<array>
-		<string>src</string>
+		<string>rdoc</string>
 	</array>
+	<key>injectionSelector</key>
+	<string>comment.line.number.ruby</string>
+	<key>keyEquivalent</key>
+	<string>^~R</string>
 	<key>name</key>
 	<string>RDoc</string>
 	<key>patterns</key>
@@ -53,7 +57,7 @@
 						</dict>
 					</dict>
 					<key>contentName</key>
-					<string>punctuation.definition.section.rdoc</string>
+					<string>entity.name.section.rdoc</string>
 					<key>end</key>
 					<string>$\n?</string>
 					<key>name</key>
